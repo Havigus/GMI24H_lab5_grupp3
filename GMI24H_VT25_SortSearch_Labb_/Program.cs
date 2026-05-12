@@ -1,23 +1,26 @@
-﻿using AlgorithmLib;
-using System.Diagnostics;
-
+﻿using System.Diagnostics;
+using AlgorithmLib;
+using BenchmarkDotNet.Running;
 
 namespace GMI24H_VT25_SortSearch_Labb_
 {
-
     internal class Program
     {
         static void Main(string[] args)
         {
-            //Här är kod som kan användas om man vill jobba med dataströmmar (som ligger i Generator-katalogen och skapas som ström utifrån en given seed). 
+            if (args.Contains("--benchmark"))
+            {
+                RunBenchmarks();
+                return;
+            }
+            //Här är kod som kan användas om man vill jobba med dataströmmar (som ligger i Generator-katalogen och skapas som ström utifrån en given seed).
             const int numberOfPosts = 10000000;
             const int seed = 123;
 
             var generator = new RandomLogGenerator();
             var logs = generator.GenerateLogs(10, seed).ToList();
 
-
-            //Skriver ut de fem första posterna i listan med LogEntry-typer. 
+            //Skriver ut de fem första posterna i listan med LogEntry-typer.
             Console.WriteLine("förhandsvisning av loggdata:");
             foreach (var entry in logs.Take(5))
             {
@@ -34,26 +37,65 @@ namespace GMI24H_VT25_SortSearch_Labb_
             //vi tänka på att välja samma datatyp som vi vill köra våra algoritmer på, dvs. de vi bestämde oss för
             //när vi instansierade SortingManager och SearchingManager. I det här exemplet är det strängar.
             //Därför skapar vi en lista av strängar dit vi kan spara våra ip-adresser.
-            //Vi använder LINQ för att selektera ut ip-adress-propertyn från varje enskilt logentry-post i logs-listan. 
+            //Vi använder LINQ för att selektera ut ip-adress-propertyn från varje enskilt logentry-post i logs-listan.
             List<string> ipAddresses = logs.Select(entry => entry.IpAddress).ToList();
 
             //Från våra objekt, sorter och searcher, kan vi sedan anropa olika metoder där vi skickar in vår data som parametrar.
             //Det finns ingen implementation av bubblesort i SortingManager just nu. Det här metodanropet är
-            //enbart en referens för att visa hur ni kan anropa en metod och skicka er sampledata som ni hämtar 
-            //med LogParsern från textfilen. 
+            //enbart en referens för att visa hur ni kan anropa en metod och skicka er sampledata som ni hämtar
+            //med LogParsern från textfilen.
             //sorter.BubbleSort(ipAddresses); // <-- implementerar metod från SortingManager-classen som jag vill använda...
 
             //För att
             //vi ska kunna mäta hur lång tid det tar att köra algoritmen kan vi använda
-            //stopwatch och timespan 
+            //stopwatch och timespan
+            List<string> test = logs.Select(entry => entry.IpAddress).Take(20).ToList();
+            foreach (var log in test)
+            {
+                Console.WriteLine(log);
+            }
             Stopwatch sw = Stopwatch.StartNew();
+            sorter.BubbleSort(test);
             //TIPS1: det här är ett lämpligt ställe att placera körningen/anropet av din algoritm.
             sw.Stop();
-            TimeSpan elapsedTime = sw.Elapsed; //TIPS2: här är det kanske en bra idé att göra någonting med data som sparats i elapsedTime... 
-                                               //Man kan ju till exempel tänka sig att det kan vara lämpligt att gå tillbaka till deluppgift 1 i labb 1
-                                               //och kolla hur ni gjorde med er data där...
+            TimeSpan elapsedTime = sw.Elapsed; //TIPS2: här är det kanske en bra idé att göra någonting med data som sparats i elapsedTime...
+            //Man kan ju till exempel tänka sig att det kan vara lämpligt att gå tillbaka till deluppgift 1 i labb 1
+            //och kolla hur ni gjorde med er data där...
+            Console.WriteLine($"Sorteringstid: {elapsedTime.TotalMilliseconds} ms");
+            foreach (var log in test)
+            {
+                Console.WriteLine(log);
+            }
 
             Console.WriteLine($"Totalt antal rader inlästa: {logs.Count}");
+        }
+
+        static void RunBenchmarks()
+        {
+            /*TODO: Lägg till searching när det finns sen */
+            Console.WriteLine("Choose benchmark to run:");
+            Console.WriteLine("1. Sorting (unsorted data)");
+            Console.WriteLine("2. Sorting (sorted data)");
+            Console.WriteLine("3. All");
+            Console.Write("> ");
+
+            var choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    BenchmarkRunner.Run<BenchmarkSortingUnSorted>();
+                    break;
+                case "2":
+                    BenchmarkRunner.Run<BenchmarkSortingSorted>();
+                    break;
+                case "3":
+                    BenchmarkRunner.Run<BenchmarkSortingUnSorted>();
+                    BenchmarkRunner.Run<BenchmarkSortingSorted>();
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    break;
+            }
         }
     }
 }

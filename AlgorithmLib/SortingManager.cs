@@ -12,8 +12,8 @@ namespace AlgorithmLib
     /// Implementation av olika sorteringsalgoritmer för generiska listor.
     /// </summary>
     /// <typeparam name="T">Typen på elementen som ska sorteras. Måste implementera IComparable<T>.</typeparam>
-
-    public class SortingManager<T> : ISortingManager<T> where T : IComparable<T>
+    public class SortingManager<T> : ISortingManager<T>
+        where T : IComparable<T>
     {
         /// <summary>
         /// Sorterar listan med Bubble Sort-algoritmen.
@@ -21,7 +21,21 @@ namespace AlgorithmLib
         /// <param name="collection">Listan som ska sorteras.</param>
         public void BubbleSort(IList<T> collection)
         {
-            throw new NotImplementedException();
+            bool notSorted = true;
+
+            while (notSorted)
+            {
+                notSorted = false;
+
+                for (int i = 0; i < collection.Count - 1; i++)
+                {
+                    if (collection.ElementAt(i).CompareTo(collection.ElementAt(i + 1)) > 0)
+                    {
+                        (collection[i], collection[i + 1]) = (collection[i + 1], collection[i]);
+                        notSorted = true;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -51,6 +65,7 @@ namespace AlgorithmLib
         {
            throw new NotImplementedException();
         }
+
         /// <summary>
         /// Sorterar listan med Heap Sort-algoritmen.
         /// </summary>
