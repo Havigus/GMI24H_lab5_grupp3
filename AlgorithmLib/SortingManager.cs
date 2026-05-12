@@ -52,18 +52,46 @@ namespace AlgorithmLib
             {
                 return; // Listan är redan sorterad
             }
-            while (collection.Count > 1)
-            {
-                int mid = collection.Count / 2;
-                IList<T> left = collection.Take(mid).ToList();
-                IList<T> right = collection.Skip(mid).ToList();
-                Merge(left, right, collection);
-            }
+
+            // Dela listan i två delar (Divide)
+            int mid = collection.Count / 2;
+            IList<T> left = collection.Take(mid).ToList();
+            IList<T> right = collection.Skip(mid).ToList();
+
+            //Sorterar båda sidorna rekursivt tills alla sublistor är 1 element (Conquer)
+            MergeSort(left);
+            MergeSort(right);
+
+            //Slå samman de sorterade delarna
+            Merge(left, right, collection);
 
         }
         public void Merge(IList<T> left, IList<T> right, IList<T> collection)
         {
-           throw new NotImplementedException();
+            int i = 0, j = 0;
+            while (i < left.Count && j < right.Count)
+            {
+                if (left[i].CompareTo(right[j]) <= 0)
+                {
+                    collection[i + j] = left[i];
+                    i++;
+                }
+                else
+                {
+                    collection[i + j] = right[j];
+                    j++;
+                }
+            }
+            while (i < left.Count)
+            {
+                collection[i + j] = left[i];
+                i++;
+            }
+            while (j < right.Count)
+            {
+                collection[i + j] = right[j];
+                j++;
+            }
         }
 
         /// <summary>
