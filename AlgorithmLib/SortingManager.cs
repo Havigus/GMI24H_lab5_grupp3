@@ -66,6 +66,12 @@ namespace AlgorithmLib
             Merge(left, right, collection);
 
         }
+        /// <summary>
+        /// Slår samman två sublistor till en sorterad lista (Merge).
+        /// </summary>
+        /// <param name="left">Den vänstra sublistan.</param>
+        /// <param name="right">Den högra sublistan.</param>
+        /// <param name="collection">Listan som ska sorteras.</param>
         public void Merge(IList<T> left, IList<T> right, IList<T> collection)
         {
             int i = 0, j = 0;
@@ -109,7 +115,20 @@ namespace AlgorithmLib
         /// <param name="collection">Listan som ska sorteras.</param>
         public void InsertionSort(IList<T> collection)
         {
-            throw new NotImplementedException();
+            var sortedList = collection[0];
+
+            for (int i = 1; i < collection.Count; i++)
+            {
+                var currentValue = collection[i];
+                int j = i - 1;
+
+                while (j >= 0 && collection[j].CompareTo(currentValue) > 0)
+                {
+                    collection[j + 1] = collection[j];
+                    j--;
+                }
+                collection[j + 1] = currentValue;
+            }
         }
 
         /// <summary>
