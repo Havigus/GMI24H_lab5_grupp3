@@ -55,7 +55,7 @@ namespace GMI24H_VT25_SortSearch_Labb_
                 Console.WriteLine(log);
             }
             Stopwatch sw = Stopwatch.StartNew();
-            sorter.BubbleSort(test);
+            sorter.QuickSort(test);
             //TIPS1: det här är ett lämpligt ställe att placera körningen/anropet av din algoritm.
             sw.Stop();
             TimeSpan elapsedTime = sw.Elapsed; //TIPS2: här är det kanske en bra idé att göra någonting med data som sparats i elapsedTime...

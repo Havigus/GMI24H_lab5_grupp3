@@ -149,7 +149,74 @@ namespace AlgorithmLib
         /// <param name="collection">Listan som ska sorteras.</param>
         public void QuickSort(IList<T> collection)
         {
-            throw new NotImplementedException();
+            if(collection == null)
+            {
+                throw new ArgumentNullException("Listan som ska sorteras kan inte vara null."); //Kastar exception om listan är null
+            }
+
+            if (collection.Count <= 1)
+            {
+                // Finns inget att sortera
+                return;
+            }
+
+            QuickSort(collection, 0, collection.Count - 1);
+        }
+
+        public void QuickSort(IList<T> collection, int start, int end)
+        {
+            if (start < end)
+            {
+                T pivot = collection[start];
+                int low = start;
+                int high = end;
+
+                while(true)
+                {
+                    while (collection[high].CompareTo(pivot) >= 0)
+                    {
+                        high--;
+
+                        if(high <= low)
+                        {
+                            break;
+                        }
+                    }
+
+                    if(high <= low)
+                    {
+                        collection[low] = pivot;
+
+                        break;
+                    }
+
+                    collection[low] = collection[high];
+                    low++;
+
+                    while (collection[low].CompareTo(pivot) < 0)
+                    {
+                        low++;
+
+                        if(low >= high)
+                        {
+                            break;
+                        }
+                    }
+
+                    if(low >= high)
+                    {
+                        low = high;
+                        collection[high] = pivot;
+
+                        break;
+                    }
+
+                    collection[high] = collection[low];
+                }
+
+                QuickSort(collection, start, low - 1);
+                QuickSort(collection, low + 1, end);
+            }
         }
 
         /// <summary>
