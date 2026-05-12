@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +30,26 @@ namespace AlgorithmLib
         /// <param name="collection">Listan som ska sorteras.</param>
         public void MergeSort(IList<T> collection)
         {
-            throw new NotImplementedException();
+            if (collection == null)
+            {
+                throw new ArgumentNullException("Listan som ska sorteras kan inte vara null.");
+            }
+            if (collection.Count <= 1)
+            {
+                return; // Listan är redan sorterad
+            }
+            while (collection.Count > 1)
+            {
+                int mid = collection.Count / 2;
+                IList<T> left = collection.Take(mid).ToList();
+                IList<T> right = collection.Skip(mid).ToList();
+                Merge(left, right, collection);
+            }
+
+        }
+        public void Merge(IList<T> left, IList<T> right, IList<T> collection)
+        {
+           throw new NotImplementedException();
         }
         /// <summary>
         /// Sorterar listan med Heap Sort-algoritmen.

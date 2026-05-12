@@ -14,7 +14,7 @@ namespace GMI24H_VT25_SortSearch_Labb_
             const int seed = 123;
 
             var generator = new RandomLogGenerator();
-            var logs = generator.GenerateLogs(numberOfPosts, seed).ToList();
+            var logs = generator.GenerateLogs(10, seed).ToList();
 
 
             //Skriver ut de fem första posterna i listan med LogEntry-typer. 
