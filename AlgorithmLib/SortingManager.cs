@@ -163,16 +163,26 @@ namespace AlgorithmLib
             QuickSort(collection, 0, collection.Count - 1);
         }
 
+        /// <summary>
+        /// QuickSort som använder start och slut index för att sortera en del av listan.
+        /// </summary>
+        /// <param name="collection">Listan som ska sorteras.</param>
+        /// <param name="start">Startindex för den del av listan som ska sorteras.</param>
+        /// <param name="end">Slutindex för den del av listan som ska sorteras.</param>
         public void QuickSort(IList<T> collection, int start, int end)
         {
             if (start < end)
             {
+                // Vi tar det första värdet som pivot och hoppas att listan inte är sorterad.
                 T pivot = collection[start];
+
                 int low = start;
                 int high = end;
 
+                // Infinite loop för att gå igenom hela listan
                 while(true)
                 {
+                    // Gå igenom listan från sista till första elementet
                     while (collection[high].CompareTo(pivot) >= 0)
                     {
                         high--;
@@ -185,14 +195,17 @@ namespace AlgorithmLib
 
                     if(high <= low)
                     {
+                        // Höger och vänster del av listan har mötts, sätt pivot och bryt infinite loopen
                         collection[low] = pivot;
 
                         break;
                     }
 
+                    // Flytta värdet som är större än pivot till vänster sida av listan
                     collection[low] = collection[high];
                     low++;
 
+                    // Gå igenom listan från första till sista elementet och flytta värden som är mindre än pivot till höger sida av listan
                     while (collection[low].CompareTo(pivot) < 0)
                     {
                         low++;
@@ -205,15 +218,18 @@ namespace AlgorithmLib
 
                     if(low >= high)
                     {
+                        // Höger och vänster del av listan har mötts, sätt pivot och bryt infinite loopen
                         low = high;
                         collection[high] = pivot;
 
                         break;
                     }
 
+                    // Flytta värdet som är mindre än pivot till höger sida av listan
                     collection[high] = collection[low];
                 }
 
+                // Anropa QuickSort rekursivt på vänster och höger del av listan
                 QuickSort(collection, start, low - 1);
                 QuickSort(collection, low + 1, end);
             }
