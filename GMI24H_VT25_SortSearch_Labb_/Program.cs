@@ -74,8 +74,8 @@ namespace GMI24H_VT25_SortSearch_Labb_
         {
             /*TODO: Lägg till searching när det finns sen */
             Console.WriteLine("Choose benchmark to run:");
-            Console.WriteLine("1. Sorting (unsorted data)");
-            Console.WriteLine("2. Sorting (sorted data)");
+            Console.WriteLine("1. Sorting");
+            Console.WriteLine("2. Searching");
             Console.WriteLine("3. All");
             Console.Write("> ");
 
@@ -83,14 +83,13 @@ namespace GMI24H_VT25_SortSearch_Labb_
             switch (choice)
             {
                 case "1":
-                    BenchmarkRunner.Run<BenchmarkSortingUnSorted>();
+                    BenchmarkRunner.Run<BenchmarkSorting>();
                     break;
                 case "2":
-                    BenchmarkRunner.Run<BenchmarkSortingSorted>();
+                    throw new NotImplementedException();
                     break;
                 case "3":
-                    BenchmarkRunner.Run<BenchmarkSortingUnSorted>();
-                    BenchmarkRunner.Run<BenchmarkSortingSorted>();
+                    BenchmarkRunner.Run<BenchmarkSorting>();
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");
