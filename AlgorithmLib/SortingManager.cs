@@ -46,7 +46,7 @@ namespace AlgorithmLib
         {
             if (collection == null)
             {
-                throw new ArgumentNullException("Listan som ska sorteras kan inte vara null.");
+                throw new ArgumentNullException("Listan som ska sorteras kan inte vara null."); //Kastar exception om listan är null
             }
             if (collection.Count <= 1)
             {
@@ -74,6 +74,7 @@ namespace AlgorithmLib
         /// <param name="collection">Listan som ska sorteras.</param>
         public void Merge(IList<T> left, IList<T> right, IList<T> collection)
         {
+            //Jämför elementen i de två sublistorna och lägg det mindre elementet i den sorterade listan tills en av sublistorna är tom
             int i = 0, j = 0;
             while (i < left.Count && j < right.Count)
             {
@@ -88,6 +89,7 @@ namespace AlgorithmLib
                     j++;
                 }
             }
+            //Kollar om det finns kvarvarande element i någon av sublistorna och lägger till dem i den sorterade listan
             while (i < left.Count)
             {
                 collection[i + j] = left[i];
@@ -115,18 +117,28 @@ namespace AlgorithmLib
         /// <param name="collection">Listan som ska sorteras.</param>
         public void InsertionSort(IList<T> collection)
         {
-            var sortedList = collection[0];
-
+            if (collection == null)
+            {
+                throw new ArgumentNullException("Listan som ska sorteras kan inte vara null."); //Kastar exception om listan är null
+            }
+            if (collection.Count <= 1)
+            {
+                return; // Listan är redan sorterad
+            }
+            //Itererar genom listan av element i den osorterade listan
             for (int i = 1; i < collection.Count; i++)
             {
+                //Sparar det nuvarande värdet i en temporär variabel
                 var currentValue = collection[i];
                 int j = i - 1;
 
+                //Jämför det nuvarande värdet med den sorterade listan och flyttar de större elementen till höger
                 while (j >= 0 && collection[j].CompareTo(currentValue) > 0)
                 {
                     collection[j + 1] = collection[j];
                     j--;
                 }
+                //Placerar det nuvarande värdet på rätt position i den sorterade listan
                 collection[j + 1] = currentValue;
             }
         }
