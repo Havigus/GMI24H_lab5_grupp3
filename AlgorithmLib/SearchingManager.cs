@@ -21,7 +21,32 @@ namespace AlgorithmLib
         /// <returns>Index för träff eller -1 om inget hittas.</returns>
         public int BinarySearch(IList<T> collection, T target)
         {
-            throw new NotImplementedException();
+            // Baserat på pseudokod i kursboken
+            int min = 0;
+            int max = collection.Count - 1;
+
+            while(min <= max)
+            {
+                // Hitta mitten
+                int mid = (min + max) / 2;
+
+                // Kolla om vi måste söka i vänster eller höger del
+                if (target.CompareTo(collection[mid]) < 0)
+                {
+                    max = mid - 1;
+                }
+                else if (target.CompareTo(collection[mid]) > 0)
+                {
+                    min = mid + 1;
+                }
+                else
+                {
+                    return mid;
+                }
+            }
+
+            // Det vi letar efter finns inte i listan
+            return -1;
         }
 
         /// <summary>
