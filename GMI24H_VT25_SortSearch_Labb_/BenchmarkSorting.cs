@@ -28,6 +28,10 @@ public class BenchmarkSorting
         {
           return true;
         }
+        if (method == "BubbleSort" && input == InputShape.Sorted)
+        {
+          return true;
+        }
 
         if (method == "QuickSort" && input == InputShape.Sorted && n > SlowSortMaxN)
         {
