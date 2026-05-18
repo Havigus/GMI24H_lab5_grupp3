@@ -15,6 +15,7 @@ namespace AlgorithmLib
   public class SortingManager<T> : ISortingManager<T>
       where T : IComparable<T>
   {
+    private readonly Random _random = new Random();
     /// <summary>
     /// Sorterar listan med Bubble Sort-algoritmen.
     /// </summary>
@@ -183,6 +184,10 @@ namespace AlgorithmLib
     {
       if (start < end)
       {
+        /*random pivot for testing*/
+        // int random = _random.Next(start, end + 1);
+        // (collection[start], collection[random]) = (collection[random], collection[start]);
+
         // Vi tar det första värdet som pivot och hoppas att listan inte är sorterad.
         T pivot = collection[start];
 
