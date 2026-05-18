@@ -93,14 +93,14 @@ namespace AlgorithmLib
                     return -1;
                 }
             }
-             while (collection[prev].CompareTo(target) < 0)
-             {
-                if (collection[prev].CompareTo(target) == 0)
-                {
-                    return prev;
-                }
-                prev++;
-             }
+            while (prev < Math.Min(step, n))
+            {
+               if (collection[prev].CompareTo(target) == 0)
+               {
+                   return prev;
+               }
+               prev++;
+            }
             return -1;
         }
 
