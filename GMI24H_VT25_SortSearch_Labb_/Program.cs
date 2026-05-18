@@ -86,10 +86,11 @@ namespace GMI24H_VT25_SortSearch_Labb_
                     BenchmarkRunner.Run<BenchmarkSorting>();
                     break;
                 case "2":
-                    throw new NotImplementedException();
+                    BenchmarkRunner.Run<BenchmarkSearching>();
                     break;
                 case "3":
                     BenchmarkRunner.Run<BenchmarkSorting>();
+                    BenchmarkRunner.Run<BenchmarkSearching>();
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");

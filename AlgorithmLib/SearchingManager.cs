@@ -10,8 +10,8 @@ namespace AlgorithmLib
     /// Implementation av olika sökalgoritmer för generiska listor.
     /// </summary>
     /// <typeparam name="T">Typen på elementen som ska sökas i. Måste implementera IComparable<T>.</typeparam>
-
-    public class SearchingManager<T> : ISearchingManager<T> where T : IComparable<T>
+    public class SearchingManager<T> : ISearchingManager<T>
+        where T : IComparable<T>
     {
         /// <summary>
         /// Utför binär sökning i en sorterad lista.
@@ -65,7 +65,16 @@ namespace AlgorithmLib
         /// <returns>Index för träff eller -1 om inget hittas.</returns>
         public int LinearSearch(IList<T> collection, T target)
         {
-            throw new NotImplementedException();
+            var comparer = EqualityComparer<T>.Default;
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (comparer.Equals(collection[i], target))
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
     }
 }
