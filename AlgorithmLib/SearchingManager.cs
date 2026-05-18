@@ -79,7 +79,29 @@ namespace AlgorithmLib
         /// <returns>Index för träff eller -1 om inget hittas.</returns>
         public int JumpSearch(IList<T> collection, T target)
         {
-            throw new NotImplementedException();
+            int n = collection.Count;
+            int jumpsize = (int)Math.Sqrt(n);
+            int step = jumpsize;
+            int prev = 0;
+
+            while (collection[Math.Min(step, n) - 1].CompareTo(target) < 0)
+            {
+                prev = step;
+                step += jumpsize;
+                if (prev >= n)
+                {
+                    return -1;
+                }
+            }
+             while (collection[prev].CompareTo(target) < 0)
+             {
+                if (collection[prev].CompareTo(target) == 0)
+                {
+                    return prev;
+                }
+                prev++;
+             }
+            return -1;
         }
 
         /// <summary>
